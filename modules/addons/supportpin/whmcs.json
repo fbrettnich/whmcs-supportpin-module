@@ -1,0 +1,31 @@
+{
+  "schema": "1.0",
+  "type": "whmcs-addons",
+  "name": "supportpin",
+  "license": "GNU GPLv3",
+  "category": "productivity",
+  "description": {
+    "name": "Support PIN",
+    "tagline": "Let your customers generate a support/phone pin to identify your customers faster, for example on the phone",
+    "long": "",
+    "features": [
+      "Customers can generate support/phone pin",
+      "Sidebar Widget for Clientarea Dashboard",
+      "Dedicated clientarea page to generate support pin",
+      "Staff members can find customers very quickly via pin",
+      "Admin Dashboard widget for very fast access",
+      "List of all active support PINs and their users"
+    ]
+  },
+  "support": {
+    "homepage": "https://fbrettnich.de/?utm_source=whmcs&utm_medium=addon_homepage&utm_campaign=support_pin",
+    "learn_more": "https://github.com/fbrettnich/WHMCS-SupportPin/",
+    "docs_url": "https://github.com/fbrettnich/WHMCS-SupportPin/wiki/"
+  },
+  "authors": [
+    {
+      "name": "Felix Brettnich",
+      "homepage": "https://fbrettnich.de/?utm_source=whmcs&utm_medium=addon_author&utm_campaign=support_pin"
+    }
+  ]
+}
