@@ -22,7 +22,7 @@ add_hook('ClientAreaPrimarySidebar', 1, function($primarySidebar) {
 
         $searchCustomerExists = Capsule::table('mod_supportpin')->where("customerid", "=", $_SESSION['uid'])->get();
 
-        if (empty($searchCustomerExists)) {
+        if(strlen($searchCustomerExists) < 3) {
             $supportPin = generateAvailablePin();
 
             try {
