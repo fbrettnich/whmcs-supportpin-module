@@ -62,14 +62,13 @@ function supportpin_deactivate() {
     }
 }
 
-function supportpin_clientarea($vars)
-{
+function supportpin_clientarea($vars) {
 
     $_lang = $vars['_lang'];
     $newSupportPin = supportpin_generateAvailablePin();
     $searchCustomerExists = Capsule::table('mod_supportpin')->where("customerid", "=", $_SESSION['uid'])->get();
 
-    if(empty($searchCustomerExists)) {
+    if(strlen($searchCustomerExists) < 3) {
         try {
             Capsule::table('mod_supportpin')->insert(
                 [
@@ -201,7 +200,7 @@ function supportpin_generateAvailablePin() {
 
     $pinExists = Capsule::table('mod_supportpin')->where("pin", "=", $randomPin)->get();
 
-    if(!empty($pinExists)) {
+    if(strlen($pinExists) > 2) {
         return supportpin_generateAvailablePin();
     }
 

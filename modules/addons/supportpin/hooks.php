@@ -120,7 +120,7 @@ function generateAvailablePin() {
 
     $pinExists = Capsule::table('mod_supportpin')->where("pin", "=", $randomPin)->get();
 
-    if(!empty($pinExists)) {
+    if(strlen($pinExists) > 2) {
         return generateAvailablePin();
     }
 
