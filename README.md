@@ -7,7 +7,7 @@ Advanced features included with paid addons, such as expiration time or access d
 
 ------------
 
-[Click here for the installation guide in the wiki](https://github.com/fbrettnich/WHMCS-SupportPin/wiki/Installation "Click here for the installation guide in the wiki")
+[Click here for the installation guide in the wiki](https://github.com/fbrettnich/whmcs-supportpin-module/wiki/Installation "Click here for the installation guide in the wiki")
 
 ------------
 ### WHMCS Module

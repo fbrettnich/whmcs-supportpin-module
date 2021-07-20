@@ -3,9 +3,9 @@
 *
 * Copyright (c) 2021 Felix Brettnich
 *
-* This file is part of WHMCS-SupportPIN
+* This file is part of fbrettnich/whmcs-supportpin-module
 *
-* Licensed under GPL-3.0 (https://github.com/fbrettnich/WHMCS-SupportPIN/blob/main/LICENSE)
+* Licensed under GPL-3.0 (https://github.com/fbrettnich/whmcs-supportpin-module/blob/main/LICENSE)
 -->
 
 <div style="text-align: center;">
