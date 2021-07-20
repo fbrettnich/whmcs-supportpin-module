@@ -11,16 +11,16 @@ Advanced features included with paid addons, such as expiration time or access d
 
 ------------
 ### WHMCS Module
-![WHMCS Module](https://cdn.fbrettnich.de/github/WHMCS-SupportPin/images/module-info.png "WHMCS Module")
+![WHMCS Module](https://raw.githubusercontent.com/fbrettnich/whmcs-supportpin-module/main/.github/images/module-info.png "WHMCS Module")
 
 ### Client Page
-![Client Page](https://cdn.fbrettnich.de/github/WHMCS-SupportPin/images/client-page.png "Client Page")
+![Client Page](https://raw.githubusercontent.com/fbrettnich/whmcs-supportpin-module/main/.github/images/client-page.png "Client Page")
 
 ### Client Area Dashboard
-![Client Area Dashboard](https://cdn.fbrettnich.de/github/WHMCS-SupportPin/images/clientarea.png "Client Area Dashboard")
+![Client Area Dashboard](https://raw.githubusercontent.com/fbrettnich/whmcs-supportpin-module/main/.github/images/clientarea.png "Client Area Dashboard")
 
 ### Admin Dashboard Widget
-![Admin Dashboard Widget](https://cdn.fbrettnich.de/github/WHMCS-SupportPin/images/admin-widget.png "Admin Dashboard Widget")
+![Admin Dashboard Widget](https://raw.githubusercontent.com/fbrettnich/whmcs-supportpin-module/main/.github/images/admin-widget.png "Admin Dashboard Widget")
 
 ### Admin Page
-![Admin Page](https://cdn.fbrettnich.de/github/WHMCS-SupportPin/images/admin-page.png "Admin Page")
+![Admin Page](https://raw.githubusercontent.com/fbrettnich/whmcs-supportpin-module/main/.github/images/admin-page.png "Admin Page")
