@@ -54,8 +54,31 @@ add_hook('ClientAreaPrimarySidebar', 1, function($primarySidebar) {
 
         // For Lagom Theme
         $supportPinMenu->setBodyHtml('
-<span style="font-size: 35px; color: greenyellow;">' . $supportPin . '</span>
-<span style="font-size: 20px;margin-left: 7px;"><a href="index.php?m=supportpin"><i class="fas fa-sync-alt"></i></a></span>
+<span id="sPIN" style="font-size: 35px; color: greenyellow;">' . $supportPin . '</span>
+<span style="font-size: 20px;margin-left: 7px;"><a href="#" onclick="RenewPIN()"><i class="fas fa-sync-alt"></i></a></span>
+<script>
+function Request(url, callback){
+    $.ajax({
+       type: "POST",
+       crossDomain: false,
+       url: url,
+       data: { "PIN": true },
+       success: function(respond){
+            callback(respond);
+       },
+       error: function(response){
+           console.log(response.status);
+       }
+   });
+};
+
+function RenewPIN(){
+    Request("index.php?m=supportpin&page=renew", function(response){
+        $("#sPIN").html(response.PIN);
+    })
+}
+</script>
+
 ');
 
         // For default Themes

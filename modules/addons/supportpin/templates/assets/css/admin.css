@@ -1,0 +1,21 @@
+
+#supportpinCustomers td, #supportpinCustomers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#supportpinCustomers tr:nth-child(even){
+background-color: #f1f1f1;
+}
+
+#supportpinCustomers tr:hover {
+background-color: #ddd;
+}
+
+#supportpinCustomers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #35ac3a;
+  color: white;
+}

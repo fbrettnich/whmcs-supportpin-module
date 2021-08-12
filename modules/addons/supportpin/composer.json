@@ -1,0 +1,17 @@
+{
+    "name": "fbrettnich/whmcs-supportpin-module",
+    "description": "WHMCS Addon | Let your customers generate a support/phone pin to identify your customers faster, for example on the phone",
+    "autoload": {
+        "psr-4": {
+            "Fbrettnich\\WhmcsSupportpinModule\\Manager\\": "Manager/",
+            "Fbrettnich\\WhmcsSupportpinModule\\Services\\": "Services/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Felix Brettnich",
+            "email": "github@fbrettnich.de"
+        }
+    ],
+    "require": {}
+}
