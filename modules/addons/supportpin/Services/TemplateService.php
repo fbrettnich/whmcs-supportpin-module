@@ -75,7 +75,7 @@ class TemplateService {
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s"),
             ]);
-        } catch (\Exception $e) { LogActivity(json_encode($e)); return null;  } // Just return everything to the log if something goes wrong
+        } catch (\Exception $e) { logActivity(json_encode($e)); return null;  } // Just return everything to the log if something goes wrong
         return $NewPIN;
     }
 
