@@ -1,23 +1,14 @@
 <!-- 
- ###############################################################################
- File: index.tpl
- Project: admin
- File Created: Thursday, 12th August 2021 12:22:10 pm
- Author: Thomas Brinkmann (doyl@dsh.icu)
- -----
- Last Modified: Thursday, 12th August 2021 12:52:18 pm
- Modified By: Thomas Brinkmann (doyl@dsh.icu>)
- -----
- Copyright 2021 - Thomas Brinkmann. All Rights Reserved.
- -----
- License Text 
- Es ist Ihnen untersagt diese Software zu kopieren, manipulieren, verbreiten oder anderweitig ohne ausdrückliche Erlaubnis zu nutzen.
- Sie dürfen ebenfalls nicht den Copyright Hinweis entfernen. 
- 
- It is prohibited to copy, manipulate, distribute or otherwise use this software without express permission.
- You may also not remove the copyright notice. 
- -----
- ###############################################################################
+/**
+ * WHMCS-SupportPIN - Let your customers generate a support/phone pin to identify your customers faster, for example on the phone
+ *
+ * Copyright (c) 2021 Felix Brettnich
+ * Copyright (c) 2021 All contributors
+ *
+ * This file is part of fbrettnich/whmcs-supportpin-module
+ *
+ * Licensed under GPL-3.0 (https://github.com/fbrettnich/whmcs-supportpin-module/blob/main/LICENSE)
+ */
  -->
  <link rel="stylesheet" href="../modules/addons/supportpin/templates/assets/css/admin.css">
 
