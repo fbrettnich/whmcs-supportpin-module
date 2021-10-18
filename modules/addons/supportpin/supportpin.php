@@ -10,10 +10,16 @@
  */
 
 use WHMCS\Database\Capsule;
+use Fbrettnich\WhmcsSupportpinModule\Manager\TemplateManager;
+use Fbrettnich\WhmcsSupportpinModule\Services\ResponseService;
+use Fbrettnich\WhmcsSupportpinModule\Services\TemplateService;
 
 if (!defined("WHMCS")) {
     die("This file cannot be accessed directly");
 }
+
+include_once(__DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php'); 
+
 
 function supportpin_config() {
     return [
@@ -63,47 +69,30 @@ function supportpin_deactivate() {
 }
 
 function supportpin_clientarea($vars) {
+    $clientid = $_SESSION['uid'];
+    if ($clientid == null)
+        return;
 
+    $vars = array_merge($vars, [ "clientID" => $clientid ]);
+
+    $page = isset($_GET['page']) ? $_GET['page'] : 'index';
+    $CustomFunction = "template_Client_" . $page;
+    $TPLManager = new TemplateManager(dirname(__FILE__), "client/index.tpl");
     $_lang = $vars['_lang'];
-    $newSupportPin = supportpin_generateAvailablePin();
-    $searchCustomerExists = Capsule::table('mod_supportpin')->where("customerid", "=", $_SESSION['uid'])->get();
+    $modulelink = $vars['modulelink'];
 
-    if(strlen($searchCustomerExists) < 3) {
-        try {
-            Capsule::table('mod_supportpin')->insert(
-                [
-                    'customerid' => $_SESSION['uid'],
-                    'pin' => $newSupportPin,
-                    'created_at' => date("Y-m-d H:i:s"),
-                    'updated_at' => date("Y-m-d H:i:s"),
-                ]
-            );
-        } catch (\Exception $e) {
-            echo "I couldn't create client support pin. {$e->getMessage()}";
-        }
-    }else{
-        try {
-            Capsule::table('mod_supportpin')
-                ->where('customerid', $_SESSION['uid'])
-                ->update(
-                    [
-                        'pin' => $newSupportPin,
-                        'updated_at' => date("Y-m-d H:i:s"),
-                    ]
-                );
-        } catch (\Exception $e) {
-            echo "I couldn't update client support pin. {$e->getMessage()}";
-        }
-    }
+    if($page == "renew" && isset($_POST['PIN'])) // Generate a JSON response if the client just click renew in its dashboard to avoid a page reload
+        (new ResponseService)->jsonResponse( (new TemplateService)->template_RenewPIN($clientid) );
 
     return array(
         'pagetitle' => 'Support PIN',
         'breadcrumb' => array('index.php?m=supportpin' => 'Support PIN'),
-        'templatefile' => 'index',
+        'templatefile' => $TPLManager->getTemplate($page),
         'requirelogin' => true,
         'forcessl' => false,
         'vars' => array(
-            'supportpin' => $newSupportPin,
+            'modulelink'    => $modulelink,
+            'tplVars' => (new TemplateService)->$CustomFunction($vars),
             'lang_client_title' => $_lang['client_title'],
             'lang_client_info' => $_lang['client_info'],
             'lang_client_regenerate' => $_lang['client_regenerate'],
@@ -129,80 +118,26 @@ function supportpin_sidebar($vars) {
 }
 
 function supportpin_output($vars) {
-
     $_lang = $vars['_lang'];
+    $smarty = new Smarty();
+    $page = isset($_GET['page']) ? $_GET['page'] : 'index';
+    $TPLManager = new TemplateManager(dirname(__FILE__));
 
-    if(isset($_POST['searchsupportpin'])) {
-        $customerInfo = Capsule::table('mod_supportpin')->where("pin", "=", $_POST['searchsupportpin'])->first();
-        header('Location: clientssummary.php?userid=' . $customerInfo->customerid);
-        exit;
-    }
+    (new TemplateService)->handle_POST($_POST);
 
-    echo "
-<h3>{$_lang['admin_title_activepins']}</h3>
-<table id=\"supportpinCustomers\" style=\"width:100%\">
-    <tr>
-        <th style=\"width: 5%\">{$_lang['admin_table_id']}</th>
-        <th style=\"width: 20%\">{$_lang['admin_table_firstname']}</th>
-        <th style=\"width: 20%\">{$_lang['admin_table_lastname']}</th>
-        <th style=\"width: 10%\">{$_lang['admin_table_pin']}</th>
-        <th style=\"width: 25%\">{$_lang['admin_table_updated']}</th>
-        <th style=\"width: 10%\"></th>
-    </tr>
-    ";
+    
+    //Assign the default variables to smarty
+    $smarty->assign('modulelink', $vars['modulelink'] );
+    $smarty->assign('tplPath', dirname(__FILE__) . '/templates' );
+    $smarty->assign('currentPage', $page );
+	$smarty->assign('addonlang', $_lang );
+	$smarty->caching = false; // Debuggin
+    $smarty->compile_dir = $GLOBALS['templates_compiledir'];
+    $CustomFunction = "template_" . $page;
+    $smarty->assign('tplVars', (new TemplateService)->$CustomFunction($vars)); // Assign template Variables
 
-    foreach (Capsule::table('mod_supportpin')->whereRaw("`updated_at` > (NOW() - INTERVAL 2 DAY)")->orderBy("updated_at", "desc")->get() as $client) {
-        $customerInfo = Capsule::table('tblclients')->where("id", "=", $client->customerid)->first();
-
-        echo "
-    <tr>
-        <td>{$client->customerid}</td>
-        <td>{$customerInfo->firstname}</td>
-        <td>{$customerInfo->lastname}</td>
-        <td>{$client->pin}</td>
-        <td>{$client->updated_at}</td>
-        <td style=\"text-align: center;\"><a href=\"clientssummary.php?userid={$client->customerid}\" class=\"btn btn-success\">{$_lang['admin_table_gocustomer']}</a></td>
-    </tr>
-";
-    }
-
-    echo "
-</table>
-
-<style>
-#supportpinCustomers td, #supportpinCustomers th {
-  border: 1px solid #ddd;
-  padding: 8px;
-}
-
-#supportpinCustomers tr:nth-child(even){
-background-color: #f1f1f1;
-}
-
-#supportpinCustomers tr:hover {
-background-color: #ddd;
-}
-
-#supportpinCustomers th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #35ac3a;
-  color: white;
-}
-</style>
-";
+    //Load Template
+	$smarty->display($TPLManager->getTemplate($page, true));
 
 }
 
-function supportpin_generateAvailablePin() {
-    $randomPin = rand(100000, 999999);
-
-    $pinExists = Capsule::table('mod_supportpin')->where("pin", "=", $randomPin)->get();
-
-    if(strlen($pinExists) > 2) {
-        return supportpin_generateAvailablePin();
-    }
-
-    return $randomPin;
-}
