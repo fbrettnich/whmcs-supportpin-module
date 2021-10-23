@@ -28,28 +28,41 @@
 
 
 <script>
-    let pinIcon = document.getElementById("pinIcon");
-
-    function Request(url, callback){
+    var isLoading = false;
+    
+    function Request(url, callback, errorCallback = false) {
         $.ajax({
-           type: "POST",
-           crossDomain: false,
-           url: url,
-           data: { "PIN": true },
-           success: function(respond){
+            type: "POST",
+            crossDomain: false,
+            url: url,
+            data: { "PIN": true },
+            success: function (respond) {
                 callback(respond);
-           },
-           error: function(response){
-               console.log(response.status);
-           }
-       });
+            },
+            error: function (response) {
+                if (!errorCallback) {
+                    console.log(response.status);
+                    return;
+                }
+                errorCallback(response);
+            }
+        });
     };
     
-    function RenewPIN(){
-        pinIcon.classList.add("icon-rotate");
-        Request("index.php?m=supportpin&page=renew", function(response){
+    function RenewPIN() {
+        if (isLoading){
+            return; // Break to avoid generating multiple Pins 
+        }
+        isLoading = true;
+        $('#pinIcon').addClass('icon-rotate');
+        Request("index.php?m=supportpin&page=renew", function (response) {
             $("#sPIN").html(response.PIN);
-            pinIcon.classList.remove("icon-rotate");
-        })
+            $('#pinIcon').removeClass('icon-rotate');
+            isLoading = false; // Remove the loading state again, if we add the button a ID we can update it also on Loadin with the attribute disabled and later on removing it again
+        }, function (reponse) {
+            // On Failure, we need to remove the rotating animation or if we also change the button, we need to remove this tho.
+            isLoading = false;
+            $('#pinIcon').removeClass('icon-rotate');
+        });
     }
-    </script>
+</script>
