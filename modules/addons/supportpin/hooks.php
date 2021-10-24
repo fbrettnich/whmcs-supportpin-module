@@ -45,7 +45,7 @@ add_hook('ClientAreaPrimarySidebar', 1, function($primarySidebar) {
         $supportPinMenu = $primarySidebar->addChild('supportPinMenu',
             array(
                 'name' => 'SupportPin',
-                'label' => $admin_table_pin,
+                'label' => 'Support Pin',
                 'uri' => 'index.php?m=supportpin',
                 'order' => 1,
                 'icon' => 'fas fa-key'
