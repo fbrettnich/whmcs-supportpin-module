@@ -50,9 +50,7 @@
     };
     
     function RenewPIN() {
-        if (isLoading){
-            return; // Break to avoid generating multiple Pins 
-        }
+        if (isLoading) return;
         isLoading = true;
         $('#pinIcon').addClass('icon-rotate');
         Request("index.php?m=supportpin&page=renew", function (response) {
