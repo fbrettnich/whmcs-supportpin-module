@@ -58,7 +58,6 @@
             $('#pinIcon').removeClass('icon-rotate');
             isLoading = false;
         }, function (reponse) {
-            // On Failure, we need to remove the rotating animation or if we also change the button, we need to remove this tho.
             isLoading = false;
             $('#pinIcon').removeClass('icon-rotate');
         });
