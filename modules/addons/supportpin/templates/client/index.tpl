@@ -56,7 +56,7 @@
         Request("index.php?m=supportpin&page=renew", function (response) {
             $("#sPIN").html(response.PIN);
             $('#pinIcon').removeClass('icon-rotate');
-            isLoading = false; // Remove the loading state again, if we add the button a ID we can update it also on Loadin with the attribute disabled and later on removing it again
+            isLoading = false;
         }, function (reponse) {
             // On Failure, we need to remove the rotating animation or if we also change the button, we need to remove this tho.
             isLoading = false;
